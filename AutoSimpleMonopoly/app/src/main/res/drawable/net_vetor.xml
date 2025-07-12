@@ -1,0 +1,20 @@
+<!-- 此xml文件定义了一个由三个相对坐标点(0,0)、(100,0)、(0,100)围城的封闭三角形
+    ，视图窗口为600x600 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="100dp"
+    android:width="100dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100" >
+    <!-- pivotX、pivotY定义了图形绘制后相对于视窗的X、Y轴偏移量 -->
+    <!-- rotation=45.0，即将图形以顺时针旋转45度 -->
+    <group
+        android:name="rotationGroup"
+        android:pivotX="000.0"
+        android:pivotY="000.0"
+        android:rotation="0.0" >
+        <path
+            android:name="origin"
+            android:fillColor="@color/design_default_color_background"
+            android:pathData="M0,0 l 0,1 10,0 0,10 h 5 v 10" />
+    </group>
+</vector>

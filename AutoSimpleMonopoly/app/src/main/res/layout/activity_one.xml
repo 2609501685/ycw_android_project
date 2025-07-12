@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OneActivity">
+
+    <Button
+        android:text="测试"
+        android:onClick="onclick"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <com.example.test2.MyView
+        android:id="@+id/myView"
+        android:contentDescription="contentDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="matrix"
+        android:src="@drawable/d7223d820c27b83029b0bf4dbadce2f8"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+<!--        <com.example.test2.MyRoadView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="#00000000"/>-->
+
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>
