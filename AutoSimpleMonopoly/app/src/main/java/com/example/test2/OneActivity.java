@@ -195,6 +195,8 @@ public class OneActivity extends AppCompatActivity {
             Log.d("ycw", "player["+player.getPlayerIndex()+"] submit");
             executorService.submit(player);
         }
+
+        v.setVisibility(View.INVISIBLE);
     }
 
     public ExecutorService getExecutorService() {

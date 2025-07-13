@@ -103,6 +103,7 @@ public class Player extends Thread {
             randomStep.setTextColor(Color.BLACK);
             randomStep.setTypeface(null, Typeface.BOLD);
             randomStep.setText(String.format("%d", 1));
+            randomStep.setVisibility(INVISIBLE);
 
             relative_layout.addView(randomStep);
             activity.getMyView().addView(randomStep);

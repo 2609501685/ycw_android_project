@@ -8,9 +8,11 @@
     tools:context=".OneActivity">
 
     <Button
-        android:text="测试"
+        android:text="开始游戏"
         android:onClick="onclick"
-        android:layout_gravity="right | bottom"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
