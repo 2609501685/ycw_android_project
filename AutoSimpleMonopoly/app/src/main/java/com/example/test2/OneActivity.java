@@ -6,7 +6,9 @@ import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ import java.util.concurrent.Executors;
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class OneActivity extends AppCompatActivity {
 
+    private static final Handler handler = new Handler(Looper.getMainLooper());
     private static final int n = 15;
     private static final int m = 20;
 
@@ -103,16 +106,14 @@ public class OneActivity extends AppCompatActivity {
             return insets;
         });
 
-        //        MyApplication myapp = (MyApplication) getApplication();
-
         myView = (MyView) findViewById(R.id.myView);
         relative_layout = (RelativeLayout) findViewById(R.id.relative_layout);
         layout_scoreBoard = (LinearLayout) findViewById(R.id.layout_scoreBoard);
 
-        initMap();
-        initPlayer();
-
-//        MyApplication myapp = (MyApplication) getApplication();
+        handler.post(() -> {
+            initMap();
+            initPlayer();
+        });
 
         Log.d("ycw", "onCreate Thread_id " + Thread.currentThread().getId());
 

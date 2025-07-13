@@ -21,9 +21,10 @@ public class MapNode {
 
     private static final float startX = 1200;
     private static final float startY = 1000;
-    private static final float unit_h = 300;
-    private static final float unit_v = 150;
-    private static final float unit_v1 = 260;
+    private static final float k = 1 / 3f * 1.15f;
+    private float unit_h = 300;
+    private float unit_v = 150;
+    private float unit_v1 = 260;
 
 //    (1200, 1000)      (8000, 1000)
 //    (1200, 5000)      (8000, 5000)
@@ -44,15 +45,22 @@ public class MapNode {
         this.point = point;
         this.activity = activity;
 
-        pointF = toPointF(point);
-        view = new MyRoadView(activity);
-        view.setImageResource(R.drawable.my_vetor);
-        view.setTranslationX(pointF.x);
-        view.setTranslationY(pointF.y);
-        activity.getRelative_layout().addView(view);
-        activity.getMyView().addView(view);
+        float density = activity.getResources().getDisplayMetrics().density;
+        unit_h *= k * density;
+        unit_v *= k * density;
+        unit_v1 *= k * density;
 
+        pointF = toPointF(point);
         next = new LinkedList<>();
+
+        handler.post(()-> {
+            view = new MyRoadView(activity);
+            view.setImageResource(R.drawable.my_vetor);
+            view.setTranslationX(pointF.x);
+            view.setTranslationY(pointF.y);
+            activity.getRelative_layout().addView(view);
+            activity.getMyView().addView(view);
+        });
     }
 
     public void addNext(MapNode mapNode) {
@@ -68,9 +76,9 @@ public class MapNode {
     @NonNull
     @Override
     public String toString() {
-        return belongPlayer != null ?
+        return "("+view.getWidth()+", "+view.getHeight()+")" + (belongPlayer != null ?
                 "belongs to player["+belongPlayer.getPlayerIndex()+"], level = " + level :
-                "belongs to null, level = 0";
+                "belongs to null, level = 0");
     }
 
     public void passingBy(Player player) {

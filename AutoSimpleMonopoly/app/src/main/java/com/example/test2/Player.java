@@ -67,63 +67,64 @@ public class Player extends Thread {
         money = 100000;
 
         scoreBoard = new PlayerScoreBoard(activity, this);
-        activity.getLayout_scoreBoard().addView(scoreBoard);
-
         mapNodes = activity.getMapNodes();
-
         view = new MyRoadView(activity);
-        float rdx = Tools.getRandomFloat(100) - 50;
-        float rdy = Tools.getRandomFloat(100) - 50;
-        PointF pointF = mapNodes[curIndex.x][curIndex.y].getPointF();
-        view.setTranslationX(pointF.x + rdx);
-        view.setTranslationY(pointF.y - 100 + rdy);
-        view.setImageResource(playerId[playerIndex]);
-
         relative_layout = activity.getRelative_layout();
-        relative_layout.addView(view);
-        activity.getMyView().addView(view);
-
         textView = new TextView(activity);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        textView.setLayoutParams(layoutParams);
-        textView.setTextSize(30);
-        relative_layout.addView(textView);
-        activity.getMyView().addView(textView);
-
         randomStep = new TextView(activity);
-        randomStep.setLayoutParams(layoutParams);
-        randomStep.setTextSize(50);
-        randomStep.setTextColor(Color.BLACK);
-        randomStep.setTypeface(null, Typeface.BOLD);
-        randomStep.setText(String.format("%d", 1));
-
-        relative_layout.addView(randomStep);
-        activity.getMyView().addView(randomStep);
-
         animY = ObjectAnimator.ofFloat(textView, "translationY", 0);
-        animY.setDuration(500);
-        animY.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                textView.setAlpha(0f);
-            }
-        });
-
         viewAnimX = ObjectAnimator.ofFloat(view, "translationX", 0);
         viewAnimY = ObjectAnimator.ofFloat(view, "translationY", 0);
-        viewAnimX.setDuration(200);
-        viewAnimY.setDuration(400);
-
         animSet = new AnimatorSet();
-        animSet.playTogether(viewAnimX, viewAnimY);
-        animSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(@NonNull Animator animation, boolean isReverse) {
-                activity.windowTo(view);
-            }
+
+        handler.post(()-> {
+            activity.getLayout_scoreBoard().addView(scoreBoard);
+
+            float rdx = Tools.getRandomFloat(100) - 50;
+            float rdy = Tools.getRandomFloat(100) - 50;
+            PointF pointF = mapNodes[curIndex.x][curIndex.y].getPointF();
+            view.setTranslationX(pointF.x + rdx);
+            view.setTranslationY(pointF.y - 100 + rdy);
+            view.setImageResource(playerId[playerIndex]);
+            relative_layout.addView(view);
+            activity.getMyView().addView(view);
+
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            textView.setLayoutParams(layoutParams);
+            textView.setTextSize(30);
+            relative_layout.addView(textView);
+            activity.getMyView().addView(textView);
+
+            randomStep.setLayoutParams(layoutParams);
+            randomStep.setTextSize(50);
+            randomStep.setTextColor(Color.BLACK);
+            randomStep.setTypeface(null, Typeface.BOLD);
+            randomStep.setText(String.format("%d", 1));
+
+            relative_layout.addView(randomStep);
+            activity.getMyView().addView(randomStep);
+
+            animY.setDuration(500);
+            animY.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    textView.setAlpha(0f);
+                }
+            });
+
+            viewAnimX.setDuration(200);
+            viewAnimY.setDuration(400);
+
+            animSet.playTogether(viewAnimX, viewAnimY);
+            animSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(@NonNull Animator animation, boolean isReverse) {
+                    activity.windowTo(view);
+                }
+            });
         });
     }
 
